@@ -16,7 +16,7 @@ const notes = require('./notes');
 //     console.log('removing note');
 // }
 
-const yargs = require('yargs')
+const yargs = require('yargs');
 //console.log(process.argv)
 // console.log(yargs.argv) // gives output in json object format , easier
 
@@ -41,16 +41,26 @@ yargs.command({
     handler: function (argv) {
         notes.addNotes(argv.title, argv.body);
     }
-})
+});
+
+
+// remove a note
+yargs.command({
+    command: 'remove',
+    description: 'Remove a note',
+    builder: {
+        title: {
+            describe: 'Note title to be removed',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        //console.log("Title to be removed", argv['title']);
+        notes.removeNotes(argv.title);
+    }
+});
 
 yargs.parse();
 
-//
-// // remove a note
-// yargs.command({
-//     command: 'remove',
-//     description: 'Remove a note',
-//     handler: function () {
-//         console.log('Removing a note')
-//     }
-// })
+// 6th

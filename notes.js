@@ -22,6 +22,20 @@ const addNote = function (title, body) {
 
 };
 
+const removeNotes = function (title) {
+    const notes = loadNotes();
+    // console.log(notes);
+    for (let i = 0; i < notes.length; i++) {
+        if(notes[i].title === title){
+            // console.log('remove note');
+            delete notes[i];
+        }
+        if(notes[i] === null){
+            delete notes[i].key;
+        }
+    };
+    saveNotes(notes);
+};
 
 const loadNotes = function () {
     try {
@@ -37,7 +51,14 @@ const saveNotes = function(notes){
     const dataJSON = JSON.stringify(notes);
     fs.writeFileSync('notes.json', dataJSON);
 };
+
+const removeNote = function(note){
+    const dataJSON = JSON.stringify(note);
+    fs.removeFileSync('notes.json', dataJSON);
+};
+
 module.exports = {
     getNotes: getNotes,
     addNotes: addNote,
+    removeNotes: removeNotes,
 };
