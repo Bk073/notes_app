@@ -25,16 +25,20 @@ const addNote = function (title, body) {
 const removeNotes = function (title) {
     const notes = loadNotes();
     // console.log(notes);
-    for (let i = 0; i < notes.length; i++) {
-        if(notes[i].title === title){
-            // console.log('remove note');
-            delete notes[i];
-        }
-        if(notes[i] === null){
-            delete notes[i].key;
-        }
-    };
-    saveNotes(notes);
+    // for (let i = 0; i < notes.length; i++) {
+    //     if(notes[i].title === title){
+    //         // console.log('remove note');
+    //         delete notes[i];
+    //     }
+    //     if(notes[i] === null){
+    //         delete notes[i].key;
+    //     }
+    // };
+
+    const notesToKeep = notes.filter(function (note) {
+        return note.title !== title
+    });
+    saveNotes(notesToKeep);
 };
 
 const loadNotes = function () {
